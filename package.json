@@ -32,7 +32,8 @@
             "repository": {
               "owner": "robjporter",
               "name": "electron-autoupdate"
-            }
+            },
+            "draft": true
           }
         }
       ],
