@@ -1,3 +1,7 @@
+const  path = require('path');
+const dotenv = require('dotenv').config({
+  path: path.join(__dirname, '.env')
+} );
 
 function notarizeMaybe() {
   if (process.platform !== 'darwin') {
@@ -17,17 +21,17 @@ function notarizeMaybe() {
   }
 
   config.packagerConfig.osxNotarize = {
-    appBundleId: 'com.electron.fiddle',
+    appBundleId: process.env.NOTORIZE_APPLE_BUNDLE,
     appleId: process.env.NOTORIZE_APPLE_ID,
     appleIdPassword: process.env.NOTORIZE_APPLE_PASS,
-    ascProvider: 'LT94ZKYDCJ',
+    ascProvider: process.env.NOTORIZE_APPLE_PROVIDER,
   };
 }
 
 const config = {
     "packagerConfig": {
         "osxSign": {
-          "identity": "Developer ID Application: Rob Porter (PV4GF7TT9L)",
+          "identity": process.env.NOTORIZE_APPLE_IDENTITY,
           "hardened-runtime": true,
           "entitlements": "entitlements.plist",
           "entitlements-inherit": "entitlements.plist",
@@ -43,8 +47,8 @@ const config = {
           "name": "@electron-forge/publisher-github",
           "config": {
             "repository": {
-              "owner": "robjporter",
-              "name": "electron-autoupdate",
+              "owner": process.env.REPO_USER,
+              "name": process.env.REPO_NAME,
               "draft": true
             }
           },
